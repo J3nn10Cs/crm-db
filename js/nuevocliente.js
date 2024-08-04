@@ -85,10 +85,13 @@
             alert.textContent = menssage;
 
             form.appendChild(alert);
+            
 
             setTimeout(() => {
                 alert.classList.add('hidden');
             }, 3000);
+
+            form.reset();
         }   
     }
 })();

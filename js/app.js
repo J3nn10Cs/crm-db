@@ -59,7 +59,7 @@
                 const cursor = e.target.result;
 
                 if(cursor){
-                    const {companny, name,email,phone,id} = cursor.value;
+                    const {company, name,email,phone,id} = cursor.value;
 
                     const listClient = document.querySelector('#listado-clientes');
                     listClient.innerHTML += `
@@ -72,7 +72,7 @@
                                 <p class="text-gray-700">${phone}</p>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200  leading-5 text-gray-700">    
-                                <p class="text-gray-600">${companny}</p>
+                                <p class="text-gray-600">${company}</p>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
                                 <a href="editar-cliente.html?id=${id}" class="text-teal-600 hover:text-teal-900 mr-5">Editar</a>
