@@ -1,15 +1,3 @@
-let DB;
-function conectDb(){
-    const openConnection = window.indexedDB.open('crm',1);
-
-    openConnection.onerror = function(){
-        console.log('Hubo un error');
-    };
-
-    openConnection.onsuccess = function(){
-        DB = openConnection.result;
-    }
-}
 
 function printAlert (menssage, type,form){
     const alertDelete = document.querySelector('.alerta');

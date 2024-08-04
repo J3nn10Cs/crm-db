@@ -19,6 +19,7 @@
         const paramUrl = new URLSearchParams(window.location.search);
 
         idClient = paramUrl.get('id');
+        console.log(idClient)
 
         if(idClient){
             setTimeout(() => {
