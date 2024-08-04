@@ -8,14 +8,14 @@
     });
 
     function conectDb(){
-        const openConection = window.indexedDB.open('crm',1);
+        const openConnection = window.indexedDB.open('crm',1);
 
-        openConection.onerror = function(){
+        openConnection.onerror = function(){
             console.log('Hubo un error');
         };
 
-        openConection.onsuccess = function(){
-            DB = openConection.result;
+        openConnection.onsuccess = function(){
+            DB = openConnection.result;
         }
     }
 
@@ -32,6 +32,40 @@
             printAlert('Todos los campos son obligatorios','error');
             return;
         }
+
+        //para poder guardarlo en aplication
+        const createNewClient = (client) =>{
+            const transaction = DB.transaction(['crm'], 'readwrite');
+
+            const objectStore = transaction.objectStore('crm');
+
+            objectStore.add(client);
+
+            transaction.onerror = function(){
+                printAlert('Hubo un error','error');
+            }
+
+            transaction.oncomplete = function(){
+                printAlert('Cliente agregado correctamente', 'exito');
+                setTimeout(() => {
+                    //nos lleva a otra pestaña
+                    window.location.href = 'index.html';
+                }, 3000);
+            }
+        }
+
+        //Crear un objeto con la informacion
+        const client = {
+            //key value
+            name,
+            email,
+            phone,
+            company
+        }
+
+        client.id = Date.now();
+
+        createNewClient(client);
     }
 
     const printAlert = (menssage, type) => {
@@ -55,9 +89,6 @@
             setTimeout(() => {
                 alert.classList.add('hidden');
             }, 3000);
-        }
-
-        
+        }   
     }
-
 })();
