@@ -1,3 +1,4 @@
+let DB;
 function conectDb(){
     const openConnection = window.indexedDB.open('crm',1);
 
@@ -16,7 +17,7 @@ function printAlert (menssage, type,form){
     if(!alertDelete){
         //Crear la alerta
         const alert = document.createElement('div');
-        alert.classList.add('px-4', 'py-3','rounded','max-w-lg',',mx-auto','mt-6','text-center','border', 'alerta');
+        alert.classList.add('px-4', 'py-3','rounded','max-w-lg',',max-auto','mt-6','text-center','border', 'alerta');
 
         if(type === 'error'){
             alert.classList.add('bg-red-100', 'border-red-400','text-red-700');

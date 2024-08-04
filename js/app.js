@@ -2,6 +2,9 @@
 (function(){
 
     let DB;
+    const listClient = document.querySelector('#listado-clientes');
+
+    const table = document.querySelector('table');
 
     document.addEventListener('DOMContentLoaded', () => {
         createDb();
@@ -9,7 +12,36 @@
         if(window.indexedDB.open('crm',1)){
             getClient();
         }
+
+        listClient.addEventListener('click', deleteClient);
     })
+
+    const deleteClient = (e) => {
+        e.preventDefault();
+
+        if(e.target.classList.contains('eliminar')){
+            //dataset para el data - cliente 
+            const idDelete = Number(e.target.dataset.cliente);
+            const confirmar = confirm('Estás seguro de eliminar este cliente');
+            if(confirmar === true){
+                const transaction = DB.transaction(['crm'], 'readwrite');
+                const objectStore = transaction.objectStore('crm');
+
+                objectStore.delete(idDelete);
+
+                transaction.oncomplete = function(){
+                    printAlert('Ellinado con exito','exito',table);
+
+                    //hacer un recorrido al padre y eliminar
+                    e.target.parentElement.parentElement.remove();
+                };
+
+                transaction.onerror = function(){
+                    printAlert('Hubo un error al momento de eliminar', 'error', table)
+                }
+            }
+        }
+    }
 
     //Crear la bd de datos IndexDb
     function createDb(){
@@ -61,7 +93,7 @@
                 if(cursor){
                     const {company, name,email,phone,id} = cursor.value;
 
-                    const listClient = document.querySelector('#listado-clientes');
+                    
                     listClient.innerHTML += `
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -76,7 +108,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
                                 <a href="editar-cliente.html?id=${id}" class="text-teal-600 hover:text-teal-900 mr-5">Editar</a>
-                                <a href="#" data-cliente="${id}" class="text-red-600 hover:text-red-900">Eliminar</a>
+                                <a href="#" data-cliente="${id}" class="text-red-600 hover:text-red-900 eliminar">Eliminar</a>
                             </td>
                         </tr>
                     `

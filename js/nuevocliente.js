@@ -38,7 +38,7 @@
                 setTimeout(() => {
                     //nos lleva a otra pestaña
                     window.location.href = 'index.html';
-                }, 3000);
+                }, 1000);
             }
         }
 
